@@ -9,7 +9,7 @@ export default (state, action) => {
     case "ADD_IMAGE":
       return {
         ...state,
-        images: [...state.images, action.payload],
+        images: [...state.images, ...action.payload],
       };
     case "DELETE_IMAGE":
       return {

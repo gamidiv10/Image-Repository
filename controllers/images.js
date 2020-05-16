@@ -36,22 +36,38 @@ exports.addImage = async (req, res, next) => {
                 console.log("error:", err.message);
                 res.json("error");
             }
-        var file = files.file;
-        var filePath = file.path;
-        var fileName = file.name;
-        fs.readFile(filePath, async function read(err, data) {
-           const image = await Image.create({
-                "imageId": Math.random() * 100000,
-                "fileName": fileName,
-                "filePath": filePath,
-                "file": data
+            console.log("files", files["file[1]"].name);
+            var j = 1;
+            console.log("files", files[`file[${j}]`].name);
+            // console.log("fields", fields);
+            var imgList = []
+            for(var i = 0; i<Number(fields.count); i++)
+            {
+                console.log("Names", files[`file[${i}]`])
+                var fileName = files[`file[${i}]`].name;
+                var filePath = files[`file[${i}]`].path;
+                
+                fs.readFile(files[`file[${i}]`].path, async function read(err, data) {
+                try{
+                    var obj = {
+                        "imageId": Math.random() * 100000000,
+                        "fileName": fileName,
+                        "filePath": filePath,
+                        "file": data
+                    }
+                const image = await Image.create(obj);
+                imgList.push(image);
+            }
+            catch (error)
+            {
+                console.log(error.message);
+            }
             });
+            }
             return res.status(201).json({
                 sucess: true,
-                data: image
+                data: imgList
             });
-    
-        });
     });
         
 }
@@ -74,7 +90,7 @@ exports.addImage = async (req, res, next) => {
         }
     }
  
-} 
+}
 
 // @desc Delete images
 // @route DELETE /images/:id
