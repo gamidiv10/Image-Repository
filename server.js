@@ -3,7 +3,7 @@ const bodyParser = require('body-parser');
 const morgan = require('morgan');
 const dotenv = require('dotenv');
 const colors = require('colors');
-
+const busboy = require('connect-busboy');
 dotenv.config({path: './config/config.env'});
 const connectDB = require('./config/db');
 connectDB();
@@ -16,7 +16,7 @@ if(process.env.NODE_ENV === 'development')
 {
     app.use(morgan('dev'));
 }
-
+app.use(busboy())
 app.use('/images', images);
 
 const PORT = process.env.PORT || 5000;

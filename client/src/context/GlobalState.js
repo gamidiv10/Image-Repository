@@ -19,36 +19,31 @@ export const GlobalProvider = ({children}) => {
                 type: 'GET_IMAGES',
                 payload: response.data.data
             })
-            // console.log("Hey there!", response);
         } catch (error) {
             dispatch({
                 type: 'IMAGE_ERROR',
-                payload: error.data.response.data
-            })
-            // console.log("Hey there!", error);
-    
+                payload: "Error"
+            })    
         }
     }
 
     async function addImage(image){
-        const config = {
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        }
+        // const config = {
+        //     headers: {
+        //         'Content-Type': 'application/json'
+        //     }
+        // }
         try {
-            await axios.post('/images', image, config);
+            await axios.post('/images', image);
             dispatch({
                 type: 'ADD_IMAGE',
                 payload: image
             });
-            console.log("image", image);
         } catch (error) {
             dispatch({
                 type: 'IMAGE_ERROR',
                 payload: error.response.data.error
             });
-            console.log("image", image);
 
         }
         
