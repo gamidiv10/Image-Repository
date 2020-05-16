@@ -22,22 +22,33 @@ export const GlobalProvider = ({children}) => {
         } catch (error) {
             dispatch({
                 type: 'IMAGE_ERROR',
-                payload: "Error"
+                payload: error
             })    
         }
     }
 
     async function addImage(image){
-        // const config = {
-        //     headers: {
-        //         'Content-Type': 'application/json'
-        //     }
-        // }
         try {
-            await axios.post('/images', image);
+            const res = await axios.post('/images', image);
             dispatch({
                 type: 'ADD_IMAGE',
-                payload: image
+                payload: res.data.data
+            });
+        } catch (error) {
+            dispatch({
+                type: 'IMAGE_ERROR',
+                payload: error
+            });
+
+        }
+        
+    }
+    async function deleteImage(imageId){
+        try {
+            await axios.post(`/images/${imageId}`);
+            dispatch({
+                type: 'DELETE_IMAGE',
+                payload: imageId
             });
         } catch (error) {
             dispatch({
@@ -54,7 +65,8 @@ export const GlobalProvider = ({children}) => {
             loading: state.loading,
             error:state.error,
             getImages,
-            addImage
+            addImage,
+            deleteImage
         }
         }>          
          {children}

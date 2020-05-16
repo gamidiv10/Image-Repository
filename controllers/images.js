@@ -39,8 +39,8 @@ exports.addImage = async (req, res, next) => {
         var file = files.file;
         var filePath = file.path;
         var fileName = file.name;
-        fs.readFile(filePath, function read(err, data) {
-           const image = Image.create({
+        fs.readFile(filePath, async function read(err, data) {
+           const image = await Image.create({
                 "imageId": Math.random() * 100000,
                 "fileName": fileName,
                 "filePath": filePath,
@@ -75,4 +75,31 @@ exports.addImage = async (req, res, next) => {
     }
  
 } 
+
+// @desc Delete images
+// @route DELETE /images/:id
+// @access Public
+exports.deleteImage = async (req, res, next) => {
+    try {
+        const image = await Image.findById(req.params.imageId);
+        if(!image)
+        {
+            return res.status(404).json({
+                success: false,
+                error: 'No Image Found'
+            })
+        }
+        await image.remove();
+        return res.status(200).json({
+            success: true,
+            data: {}
+        });
+        
+    } catch (error) {
+        return res.status(500).json({
+            sucess: false,
+            error: 'Server Error'
+        });
+    }
+}
 
