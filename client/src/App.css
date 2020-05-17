@@ -41,7 +41,8 @@
   margin-top: 20px;
   align-items: center;
   align-content: center;
-  margin-left: 550px;
+  align-self: center;
+  text-align: center;
 }
 .image_div::after{
   display: flex;
@@ -63,7 +64,7 @@
   display: inline-block;
   padding: 6px 12px;
   cursor: pointer;
-  
+ margin-bottom: 40px; 
 }
 
 input[type="file"] {
@@ -80,6 +81,22 @@ input[type="file"] {
   display: inline-block;
   font-size: 16px;
   align-self: center;
-  margin-left: 20px;
 }
 
+
+*,
+*::after,
+*::before {
+  margin: 0;
+  padding: 0;
+  box-sizing: inherit;
+  font-family: 'montserrat';
+}
+
+.registrationForm{
+  align-items: center;
+  margin-top: 30px;
+  padding: 6px 12px;
+  text-align: center;
+  align-self: center;
+}

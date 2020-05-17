@@ -1,7 +1,7 @@
 const Image = require('../models/image');
 const fs = require('fs');
-const path = require('path');
 const formidable = require('formidable');
+const User = require('../models/user');
 
 // @desc Get all images
 // @route GET /images
@@ -16,7 +16,7 @@ exports.getImages = async (req, res, next) => {
         });
     } catch (error) {
         return res.status(500).json({
-            sucess: false,
+            success: false,
             error: `Server Error ${error}`
         });
     }
@@ -118,4 +118,3 @@ exports.deleteImage = async (req, res, next) => {
         });
     }
 }
-

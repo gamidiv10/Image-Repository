@@ -8,24 +8,9 @@ function Home() {
     //eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   console.log(images);
-  // if(images.length)
-  // {
-  //     var buff = []
-  //     for(var i = 0; i < images.length; i++)
-  //     {
-  //         buff.push("data:image/png;base64," + btoa(String.fromCharCode.apply(null, images[i].file.data)));
-  //     }
-  // }
-  //   for (var i = 0; i < images.length; i++){
-  //     var b = new Buffer(images[i].img.data);
-  //     var s = b.toString('base64');
-  //     images[i].base64 = "data:image/png;base64," + s
-  // }
 
-  const [imageId] = useState(0);
   const [imageList, setImages] = useState(null);
 
-  var imgFile = useState("");
   const { addImage, deleteImage } = useContext(GlobalContext);
 
   const onSubmit = (e) => {
@@ -41,13 +26,9 @@ function Home() {
     
   };
 
-  var fileList = [];
   const handleSelectedFile = (e) => {
     e.preventDefault();
     setImages(e.target.files);
-     
-    // e.target.files ? e.target.files.forEach((file) => fileList.push(file)) : console.log("No Files");
-    // console.log("Selected Files", e.target.files[1]);
   };
 
   return images.length ? (

@@ -3,6 +3,7 @@ import AppReducer from './AppReducer';
 import axios from 'axios';
 const initialState = {
     images: [],
+    users: [],
     error: null,
     loading: true
 }
@@ -11,7 +12,7 @@ const initialState = {
 export const GlobalContext = createContext(initialState);
 export const GlobalProvider = ({children}) => {
     const [state, dispatch] = useReducer(AppReducer, initialState);
-
+    
     async function getImages(){
         try {
             const response = await axios.get('/images');
@@ -67,7 +68,7 @@ export const GlobalProvider = ({children}) => {
             getImages,
             addImage,
             deleteImage
-        }
+                }
         }>          
          {children}
         </GlobalContext.Provider>

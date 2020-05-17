@@ -8,6 +8,7 @@ dotenv.config({path: './config/config.env'});
 const connectDB = require('./config/db');
 connectDB();
 const images = require('./routes/images');
+const users = require('./routes/users');
 
 const app = express();
 app.use(express.json());
@@ -18,6 +19,8 @@ if(process.env.NODE_ENV === 'development')
 }
 app.use(busboy())
 app.use('/images', images);
+app.use('/users', users);
+
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, console.log(`Server running in ${process.env.NODE_ENV} mode on port ${PORT}`.yellow.bold));

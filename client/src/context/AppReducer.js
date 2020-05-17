@@ -11,10 +11,15 @@ export default (state, action) => {
         ...state,
         images: [...state.images, ...action.payload],
       };
+    case "REGISTER_USER":
+      return {
+        ...state,
+        users: [...state.users, ...action.payload],
+      };
     case "DELETE_IMAGE":
       return {
         ...state,
-        images: state.images.filter(image => image._id !== action.payload)
+        images: state.images.filter((image) => image._id !== action.payload),
       };
     case "IMAGE_ERROR":
       return {
