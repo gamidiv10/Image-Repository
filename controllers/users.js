@@ -22,6 +22,7 @@ exports.registerUser = async (req, res, next) => {
                 success: false,
                 error: messages
             });
+            console.log(messages);
         }
         else{
             console.log("error:", error.message);

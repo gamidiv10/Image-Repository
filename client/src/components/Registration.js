@@ -1,5 +1,6 @@
 import React from "react";
 import axios from "axios";
+import passwordHash from 'password-hash';
 
 export default class Registration extends React.Component {
   constructor() {
@@ -23,7 +24,9 @@ handleChange(event) {
 
 handleSubmit(event) {
   event.preventDefault();
-  const { userId, firstName, lastName, emailId, password } = this.state;
+  let { userId, firstName, lastName, emailId, password } = this.state;
+  password = passwordHash.generate(password);
+
   axios.post('/users/register', {
     userId,
     firstName,
