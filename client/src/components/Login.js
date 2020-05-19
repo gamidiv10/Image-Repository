@@ -1,67 +1,63 @@
-import React, { Component } from "react";
+import React, { useState } from "react";
 import passwordHash from "password-hash";
 import axios from "axios";
-import { createBrowserHistory as history } from "history";
+import { useHistory } from 'react-router-dom';
+import {Button, TextField, Link} from '@material-ui/core';
 
-export default class Login extends Component {
-  constructor() {
-    super();
-    this.state = {
-      userId: "",
-      password: "",
-    };
-    this.handleSubmit = this.handleSubmit.bind(this);
-    this.handleChange = this.handleChange.bind(this);
-    this.passwordVerified = false;
+
+export default function Login(){
+    const [userId, setUserId] = useState("");
+    const [password, setPassword] = useState("");
+    const history = useHistory();
+
+  const handleUserId = (event) => {
+    setUserId(event.target.value);
+  }
+  const handlePassword = (event) => {
+    setPassword(event.target.value);
   }
 
-  handleChange(event) {
-    this.setState({
-      [event.target.name]: event.target.value,
-    });
-  }
-
-  handleSubmit(event) {
+  const handleSubmit = (event) => {
     event.preventDefault();
-    let { userId, password } = this.state;
     axios
       .get(`/users/${userId}`)
       .then((response) => {
         console.log("Success", response.data.data.password);
-        this.passwordVerified = passwordHash.verify(password, response.data.data.password)
-        this.passwordVerified ? history().push('/home') : console.log("Incorrect Password")
+        let passwordVerified = passwordHash.verify(password, response.data.data.password)
+        passwordVerified ? history.push('/home') : console.log("Incorrect Password")
 
       })
       .catch((error) => console.log(error.message));
 
   }
-  render() {
+  const handleRegister = (event) => {
+    event.preventDefault();
+    history.push('/register')
+
+    }
     return (
       <div>
-        <form onSubmit={this.handleSubmit} className="registrationForm">
-          <input
-            type="text"
-            name="userId"
-            placeholder="User ID"
-            value={this.state.userId}
-            onChange={this.handleChange}
-            required
-          />
+        <h1 className="h1">Image Repository</h1>
+        <form onSubmit={handleSubmit} className="registrationForm">
+          <TextField type="text" name="userId" placeholder="User ID" 
+          onChange={handleUserId} required variant="outlined" color="secondary"></TextField>
           <br />
           <br />
-          <input
-            type="password"
-            name="password"
+          <TextField
+            type="password" name="password"
             placeholder="Password"
-            value={this.state.password}
-            onChange={this.handleChange}
-            required
+            onChange={handlePassword}
+            required variant="outlined" color="secondary"
           />
           <br />
           <br />
-          <button type="submit">Login</button>
+          <Button type="submit" color="primary" variant="outlined">Login</Button>
+          <br />
+          <br />
+          <Link href="#" onClick={handleRegister} color="inherit">
+          <label className="inputLabel">Don't have an account?  </label>
+          Register</Link>
         </form>
       </div>
     );
   }
-}

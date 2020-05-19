@@ -5,16 +5,15 @@ import Home from './components/Home';
 import Login from './components/Login';
 import { GlobalProvider } from './context/GlobalState';
 import Registration from './components/Registration';
-import { createBrowserHistory as history} from 'history';
 
 function App() {
   return (
-    <Router history={history()}>
+    <Router className="router">
     <GlobalProvider>
       <Switch>
-      <Route exact path="/" component={Registration}/>
+      <Route exact path="/register" component={Registration}/>
       <Route path="/home" component={Home}/>
-      <Route path="/login" component={Login}/>
+      <Route path="/" component={Login}/>
       </Switch>
     </GlobalProvider>
     </Router>

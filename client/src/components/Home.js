@@ -18,7 +18,6 @@ function Home() {
     const data = new FormData();
       for (var i = 0; i < imageList.length; i++) {
         data.append(`file[${i}]`, imageList[i]);
-  
       }
       data.append("count", imageList.length);
       console.log("data in Form", data);

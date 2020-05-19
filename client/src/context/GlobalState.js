@@ -3,7 +3,6 @@ import AppReducer from './AppReducer';
 import axios from 'axios';
 const initialState = {
     images: [],
-    users: [],
     error: null,
     loading: true
 }
